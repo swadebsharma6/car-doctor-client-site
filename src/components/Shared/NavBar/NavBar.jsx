@@ -20,6 +20,11 @@ const NavBar = () => {
     className={({ isActive }) => isActive ? "underline font-bold text-orange-400" : ""} >
     Services
   </NavLink></li>
+    <li><NavLink
+    to="/login"
+    className={({ isActive }) => isActive ? "underline font-bold text-orange-400" : ""} >
+    Login
+  </NavLink></li>
     
     
     
