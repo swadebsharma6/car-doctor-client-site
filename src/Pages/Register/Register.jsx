@@ -1,10 +1,15 @@
 import { Link } from 'react-router-dom';
 import img from '../../assets/images/login/login.svg';
 
+import { useContext } from 'react';
 import { CiFacebook } from "react-icons/ci";
 import { FcGoogle } from "react-icons/fc";
+import { AuthContext } from '../../Providers/AuthProvider';
+
 
 const Register = () => {
+
+  const {createUser} = useContext(AuthContext);
 
     const handleSubmit = event =>{
         event.preventDefault();
@@ -13,7 +18,17 @@ const Register = () => {
         const name = form.name.value;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(name,email, password)
+        console.log(name,email, password);
+        // create user
+        createUser(email, password)
+        .then(result => {
+          const user = result.user;
+          console.log('created user', user);
+
+        })
+        .catch(error => {
+          console.log(error.message);
+        })
       }
 
     return (
