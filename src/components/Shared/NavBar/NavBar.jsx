@@ -1,7 +1,20 @@
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../../../Providers/AuthProvider";
 import logo from "../../../assets/logo.svg";
 
 const NavBar = () => {
+
+  const {user, logOut} = useContext(AuthContext);
+
+
+  const handleLogOut =()=>{
+    logOut()
+    .then(()=>{})
+    .catch(error =>{
+      console.log(error.message)
+    })
+  }
 
     const navLinks = <>
 
@@ -20,11 +33,25 @@ const NavBar = () => {
     className={({ isActive }) => isActive ? "underline font-bold text-orange-400" : ""} >
     Services
   </NavLink></li>
-    <li><NavLink
+    {
+      user?.email 
+      ? 
+      <>
+      <li><button onClick={handleLogOut} className="btn btn-sm btn-secondary">LogOut</button></li>
+      <li><NavLink
+    to="/bookings"
+    className={({ isActive }) => isActive ? "underline font-bold text-orange-400" : ""} >
+    My Bookings
+  </NavLink></li>
+      </>
+      :
+      <li><NavLink
     to="/login"
     className={({ isActive }) => isActive ? "underline font-bold text-orange-400" : ""} >
     Login
-  </NavLink></li>
+   </NavLink></li>
+    }
+
     
     
     
