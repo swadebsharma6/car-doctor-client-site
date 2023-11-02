@@ -20,7 +20,7 @@ const Bookings = () => {
         // fetch(url)
         // .then(res => res.json())
         // .then(data =>{
-        //     // console.log(data);
+        //     console.log(data);
         //     setBookings(data)
         // })
 
@@ -98,7 +98,7 @@ const Bookings = () => {
                   <th>Service</th>
                   <th>Date</th>
                   <th>Price</th>
-                  <th>Status</th>
+                  <th>Status</th>S
                 </tr>
               </thead>
               <tbody>

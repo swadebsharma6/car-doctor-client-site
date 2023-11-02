@@ -1,6 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import img from '../../assets/images/login/login.svg';
 
+import axios from 'axios';
 import { useContext } from 'react';
 import { CiFacebook } from "react-icons/ci";
 import { FcGoogle } from "react-icons/fc";
@@ -10,8 +11,9 @@ const Login = () => {
 
   const { signInUser} = useContext(AuthContext);
   const location = useLocation();
-  const navigate =useNavigate();
-  console.log(location)
+  // console.log(location)
+  const navigate = useNavigate();
+ 
 
   const handleSubmit = event =>{
     event.preventDefault();
@@ -23,13 +25,25 @@ const Login = () => {
     // signIn User
      signInUser(email, password)
      .then(result =>{
-      const user = result.user;
-      console.log('login user', user);
-      navigate(location?.state  ? location.state : '/')
+      const loggedUser = result.user;
+      console.log('login user', loggedUser);
+
+      const user = {email};
+
+      // navigate(location?.state  ? location.state : '/')
+      // get access token
+
+      axios.post('http://localhost:5000/jwt', user,
+       {withCredentials: true})
+      .then(res =>{
+        console.log(res.data);
+        if(res.data.success){
+          navigate(location?.state  ? location.state : '/')
+        }
+      })
+
      })
-     .catch(error =>{
-      console.log(error.message)
-     })
+     .catch(error => console.log(error.message))
   }
 
     return (
